@@ -20,6 +20,11 @@ app.use(
 );
 
 const url = "https://www.portalventaempresas.co/bragi_test/ws/ClienteService?wsdl";
+
+app.get("/", (req, res) => {
+    res.send("its work!!")
+})
+
 app.post("/consultaEan", jsonParser, (req, res) => {
     try {
         soap.createClient(url, function (err, client) {
