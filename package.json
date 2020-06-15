@@ -1,0 +1,20 @@
+{
+  "name": "servicio-sin-iva",
+  "version": "1.0.0",
+  "description": "Servicio para consumir servicio de cencosud desde vtex",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start-nodemon": "nodemon index.js"
+  },
+  "author": "Edwin Obando",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "https": "^1.0.0",
+    "nodemon": "^2.0.4",
+    "soap": "^0.31.0"
+  }
+}
