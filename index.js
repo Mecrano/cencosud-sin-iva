@@ -19,7 +19,7 @@ app.use(
     })
 );
 
-const url = "https://www.portalventaempresas.co/bragi_test/ws/ClienteService?wsdl";
+const url = "https://www.portalventaempresas.co/bragi_test/ws/ClienteService";
 
 app.get("/", (req, res) => {
     res.send("its work!!")
@@ -27,15 +27,26 @@ app.get("/", (req, res) => {
 
 app.post("/consultaEan", jsonParser, (req, res) => {
     try {
-        soap.createClient(url, function (err, client) {
-            client.setEndpoint("https://www.portalventaempresas.co/bragi_test/ws/ClienteService")
-            client.consultaEan(req.body.soapBody, function(err2, result) {
-                if (result) {
-                    res.send(result)
-                } else {
-                    res.send(err2)
-                }
-            });
+
+        let soapBody = req.body.soapBody;
+        soapBody.autenticacion = {
+            "token": "8NZoEi8a9pkVpAF7I9nSPhwnmn5RCdMSCo62Mu6J",
+            "usuario": "UserGenerico"
+        };
+
+        soap.createClient(url + "?wsdl", function (err, client) {
+            if (client) {
+                client.setEndpoint(url)
+                client.consultaEan(soapBody, function(err2, result) {
+                    if (result) {
+                        res.send(result)
+                    } else {
+                        res.send(err2)
+                    }
+                });
+            } else {
+                res.send(err)
+            }            
         });
     } catch (error) {
         res.send(error)
@@ -44,5 +55,5 @@ app.post("/consultaEan", jsonParser, (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
+    console.log(`Cencosud sin Iva app is running on port ${ PORT }`);
 });
